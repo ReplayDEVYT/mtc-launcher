@@ -214,35 +214,7 @@ namespace SPT.Launcher
 
         static bool IsCoreDllVersionMismatched(string gamePath)
         {
-            try
-            {
-                var serverVersion = new SPTVersion(ServerManager.GetVersion());
-
-                var coreDllVersionInfo = FileVersionInfo.GetVersionInfo(Path.Join(gamePath, @"\BepinEx\plugins\spt", "spt-core.dll"));
-                var dllVersion = new SPTVersion(coreDllVersionInfo.FileVersion);
-
-                LogManager.Instance.Info($"[LaunchGame] spt-core.dll version: {dllVersion}");
-
-                // Edge case, running on locally built modules dlls, ignore check and return ok
-                if (dllVersion.Major == 1) return false;
-
-                // check 'X'.x.x
-                if (serverVersion.Major != dllVersion.Major) return true;
-
-                // check x.'X'.x
-                if (serverVersion.Minor != dllVersion.Minor) return true;
-
-                // check x.x.'X'
-                if (serverVersion.Build != dllVersion.Build) return true;
-
-                return false; // Versions match, hooray
-            }
-            catch (Exception ex)
-            {
-                LogManager.Instance.Exception(ex);
-            }
-
-            return true;
+            return false;
         }
 
         void SetupGameFiles(string gamePath)
